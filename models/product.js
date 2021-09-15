@@ -9,8 +9,8 @@ const pokemonSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name cannot be empty"],
   },
-  type: {
-    type: [String],
+  type: [{
+    type: String,
     required: [true, "Type Field can not be empty"],
     enum: [
       "normal",
@@ -32,7 +32,7 @@ const pokemonSchema = new mongoose.Schema({
       "steel",
       "fairy",
     ],
-  },
+  }],
   image: {
     type: String,
     required: true,
