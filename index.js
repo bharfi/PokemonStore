@@ -25,18 +25,15 @@ mongoose
   });
 
 app.set("views", path.join(__dirname, "Views"));
+app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 //app.use(methodOverride("_method"));
 app.use(morgan("dev"));
-app.use((req, res, next) => {
-  console.log(
-    "\n******************************************************************"
-  );
-  next();
-});
-app.use(express.static(path.join(__dirname, "public")));
 
+
+
+// Error handling for Async Functions
 function WrapAsync(fn) {
   return function (req, res, next) {
     fn(req, res, next).catch((e) => {
@@ -45,20 +42,8 @@ function WrapAsync(fn) {
   };
 }
 
-
-// Product.countDocuments(function (err, count) {
-//   if (!err && count === 0) {
-//     // It's empty
-//   }
-//   else{
-//     console.log(count)
-//   }
-// });
-
-
-
-
-app.get("/", WrapAsync( async (req, res, next) => {
+// Home Page
+app.get("/", WrapAsync(async (req, res, next) => {
   const { type } = req.query;
   if (type) {
     const pokedex = await Product.find({ type });
@@ -69,13 +54,7 @@ app.get("/", WrapAsync( async (req, res, next) => {
   }
 }));
 
-// app.get(
-//   "/products/new",
-//   WrapAsync((req, res, next) => {
-//     throw new AppError("Not Allowed", 402);
-//     res.render("products/new");
-//   })
-// );
+
 
 // app.post(
 //   "/products",
@@ -103,18 +82,6 @@ app.get(
   })
 );
 
-// app.get(
-//   "/products/:id/edit",
-//   WrapAsync(async (req, res, next) => {
-//     const { id } = req.params;
-//     const product = await Product.findById(id);
-//     if (!product) {
-//       // Async Error Handling
-//       return next(new AppError("Product Not Found", 404));
-//     }
-//     res.render("products/edit", { product });
-//   })
-// );
 
 // app.put(
 //   "/products/:id",
@@ -132,19 +99,13 @@ app.get(
 //   })
 // );
 
-// app.delete(
-//   "/products/:id",
-//   WrapAsync(async (req, res) => {
-//     const { id } = req.params;
-//     const product = await Product.findByIdAndDelete(id, req.body);
-//     res.redirect("/products");
-//   })
-// );
 
+//error handling for express
 app.use((err, req, res, next) => {
   const { status = 500, message = "Something went wrong" } = err;
   res.status(status).send(message);
 });
+
 
 app.listen(3000, () => {
   console.log("App is listening in port 3000");
