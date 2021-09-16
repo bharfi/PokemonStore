@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<!--
-Name: Bharath Prabakaran
-Modified on: 05 September 2021 09:53:43
--->
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= pokemon.name %></title>
-  </head>
+<%- include('partials/head') %>
+
   <body>
-    <h1><%= pokemon.name %></h1>
-    <img src="<%= pokemon.image %>" alt="No Image Found">
-    <h3>Types: <%= pokemon.type %> </h3>
-    
-    <br>
-    <hr>
-    <a href="/">All Products</a>
-    
+    <div class="container">
+      <h1>
+        <%= pokemon.name %>
+      </h1>
+      <img src="<%= pokemon.image %>" alt="No Image Found">
+      <h3>Types: <%= pokemon.type %>
+      </h3>
+      <br>
+      <hr>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="/">All Products</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
 
   </body>
-</html>
+
+  </html>
