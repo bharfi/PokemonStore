@@ -37,6 +37,11 @@ const pokemonSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  moves: [
+    {
+      type: String
+    }
+  ]
 });
 
 const Product = mongoose.model("Product", pokemonSchema);
