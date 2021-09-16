@@ -20,7 +20,7 @@ const Product = require("./models/product");
 
 //Number of pokemon to use - interval
 var interval = {
-  limit: 20,
+  limit: 30,
   offset: 0,
 };
 
@@ -41,7 +41,8 @@ P.getPokemonsList(interval).then(async function (response) {
     const { data: data } = await axios.get(url);
     const {
       species,
-      sprites: { front_default },
+      sprites: {
+        other: {"official-artwork": { front_default: front_default }}},
       types: types,
     } = data;
     for (const {
@@ -67,7 +68,7 @@ P.getPokemonsList(interval).then(async function (response) {
       image: front_default,
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       })
       .catch((err) => {
         console.log(err);
