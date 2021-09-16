@@ -38,12 +38,14 @@ P.getPokemonsList(interval).then(async function (response) {
   pokemonList.forEach(async (pokemon) => {
     const { name, url } = pokemon;
     let typeList = [];
+    let moveList = [];
     const { data: data } = await axios.get(url);
     const {
       species,
       sprites: {
         other: {"official-artwork": { front_default: front_default }}},
-      types: types,
+      moves,
+        types: types,
     } = data;
     for (const {
       slot,
@@ -51,11 +53,16 @@ P.getPokemonsList(interval).then(async function (response) {
     } of types) {
       typeList.push(typeName);
     }
-    //console.log(name, front_default ,typeList);
+    for(const {move: {name:MoveName}} of moves)
+    {
+      moveList.push(MoveName);
+    }
+    //console.log(name, typeList, front_default);
     seedPokemon.push({
       name: name,
       type: typeList,
       image: front_default,
+      moves: moveList
     });
     //console.log(seedPokemon);
 
@@ -66,6 +73,7 @@ P.getPokemonsList(interval).then(async function (response) {
       name: name,
       type: typeList,
       image: front_default,
+      moves: moveList
     })
       .then((res) => {
         //console.log(res);

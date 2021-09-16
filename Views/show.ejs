@@ -1,15 +1,26 @@
 <%- include('partials/head') %>
 
   <body>
+    <br>
+    <br>
     <div class="container">
-      <h1>
+      <h1 class="text-capitalize">
         <%= pokemon.name %>
       </h1>
       <img src="<%= pokemon.image %>" alt="No Image Found">
-      <h3>Types: <%= pokemon.type %>
+      <h3 class="text-capitalize" >Types: <%= pokemon.type %>
       </h3>
       <br>
       <hr>
+
+      <h2>Moves:</h2>
+      <ul class="list-inline">
+        <% for (move of pokemon.moves){ %> 
+        <li class="list-inline-item badge bg-secondary text-capitalize"><%= move %> </li>
+        <% } %> 
+      </ul>
+      <hr>
+      
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item"><a class="page-link" href="/">All Products</a></li>
